@@ -1,0 +1,29 @@
+{
+  "name": "colourhash-ts",
+  "version": "1.0.0",
+  "description": "Ryder ColourHash for TypeScript",
+  "main": "src/colourhash.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "test-server": "mkdir -p ./dist && cp ./test/index.html ./dist && http-server ./dist",
+    "build": "tsc",
+    "watch": "tsc --watch",
+    "dev": "run-p watch test-server"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Light-Labs/colourhash-ts.git"
+  },
+  "keywords": [],
+  "author": "Marvin Janssen",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Light-Labs/colourhash-ts/issues"
+  },
+  "homepage": "https://github.com/Light-Labs/colourhash-ts#readme",
+  "devDependencies": {
+    "http-server": "^14.1.1",
+    "npm-run-all": "^4.1.5",
+    "typescript": "^4.7.4"
+  }
+}

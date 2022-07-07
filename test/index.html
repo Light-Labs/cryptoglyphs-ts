@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>ColourHash Test</title>
+	<style type="text/css">
+		body{
+			color: #ffffff;
+			font-family: monospace;
+			background-color: #000000;
+		}
+		input{
+			font-family: monospace;
+		}
+		label{
+			display: block;
+		}
+	</style>
+</head>
+<body>
+	<label>
+		Hash (64 hexits)
+		<input id="input" type="text" maxlength="64"/> <button id="random">Random</button>
+	</label>
+	<label>
+		Rows
+		<input id="rows" type="number" value="1" min="1" max="8"/>
+	</label>
+	<label>
+		Spacing
+		<input id="range" type="number" value="1" min="0" max="100"/>
+	</label>
+	<label>
+		Result
+		<div id="output"></div>
+	</label>
+	<script type="module">
+		import {colourhash_to_svg} from "./colourhash.js";
+
+		const input = document.getElementById("input");
+		const output = document.getElementById("output");
+
+		let hash = new Uint8Array(32);
+		crypto.getRandomValues(hash);
+		let rows = 1;
+		let spacing = 1;
+
+		function render()
+			{
+			console.log('render');
+			const svg = colourhash_to_svg(hash,{rows,spacing});
+			output.innerHTML = svg;
+			}
+
+		function hex_to_byte_array(hex)
+			{
+			if (hex.length % 2 !== 0)
+				hex = '0' + hex;
+			let bytes = [];
+			for (let i = 0 ; i < hex.length ; i += 2)
+				bytes.push(parseInt(hex.substring(i, i + 2), 16));
+			return bytes;
+			}
+
+		function byte_array_to_hex(bytes)
+			{
+			let hex = '';
+			for (let i = 0 ; i < bytes.length ; ++i)
+				hex += bytes[i].toString(16).padStart(2, '0');
+			return hex;
+			}
+
+		input.value = byte_array_to_hex(hash);
+		input.addEventListener("input",function(){hash = new Uint8Array(hex_to_byte_array(this.value)); render();});
+		document.getElementById("random").addEventListener("click",function()
+			{
+			hash = new Uint8Array(32);
+			crypto.getRandomValues(hash);
+			input.value = byte_array_to_hex(hash);
+			render();
+			});
+		document.getElementById("rows").addEventListener("input",function(){rows = parseInt(this.value); render();});
+		document.getElementById("range").addEventListener("input",function(){spacing = parseInt(this.value); render();});
+		render();
+	</script>
+</body>
+</html>
