@@ -13,7 +13,7 @@ export type ColourHashSvgOptions = {
 	spacing?: number
 };
 
-export const palette = [
+export const palette: string[] = [
 	'#332288',
 	'#117733',
 	'#44AA99',
@@ -24,7 +24,7 @@ export const palette = [
 	'#882255'
 ];
 
-export const shapes = [
+export const shapes: string[] = [
 	'm 100 50 a 50 50 0 1 1 -100 0 a 50 50 0 1 1 100 0 Z',
 	'm 100 50 a 50 50 0 1 1 -100 0 a 50 50 0 1 1 100 0 m -20 0 a 30 30 0 0 0 -60 0 a 30 30 0 0 0 60 0 Z',
 	'a 50 50 0 0 1 0 100 Z m 100 100 a 50 50 0 0 1 0 -100 Z',
@@ -54,7 +54,7 @@ export function colourhash(hash: Uint8Array): ColourHash {
 	return { version, data };
 }
 
-export function colourhash_to_svg(hash: Uint8Array, options: ColourHashSvgOptions) {
+export function colourhash_to_svg(hash: Uint8Array, options: ColourHashSvgOptions): string {
 	if (hash.byteLength !== 32)
 		throw new Error("colourhash_to_svg: expects exactly 32 bytes");
 	const requested_version = options.version ?? version;
