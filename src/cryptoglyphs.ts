@@ -1,13 +1,13 @@
 export const version = 1;
 
-export type ColourHashDataPoint = { symbol: number, colour: number };
+export type CryptoglyphsDataPoint = { symbol: number, colour: number };
 
-export type ColourHash = {
+export type Cryptoglyphs = {
 	version: number,
-	data: ColourHashDataPoint[]
+	data: CryptoglyphsDataPoint[]
 };
 
-export type ColourHashSvgOptions = {
+export type CryptoglyphsSvgOptions = {
 	version?: number,
 	rows?: number,
 	spacing?: number
@@ -43,29 +43,28 @@ export const shapes: string[] = [
 	'h 100 v 100 h -100 Z m 20 20 v 60 h 60 v -60 Z',
 ];
 
-
-export function colourhash(hash: Uint8Array): ColourHash {
+export function cryptoglyphs(hash: Uint8Array): Cryptoglyphs {
 	if (hash.byteLength !== 32)
-		throw new Error("colourhash: expects exactly 32 bytes");
+		throw new Error("cryptoglyphs: expects exactly 32 bytes");
 	const view = new DataView(hash.buffer, hash.byteOffset, hash.byteLength);
-	let data: ColourHashDataPoint[] = [];
+	let data: CryptoglyphsDataPoint[] = [];
 	for (let offset = 0; offset < view.byteLength; offset += 4)
 		data.push({ symbol: view.getUint16(offset, false), colour: view.getUint16(offset + 2, false) });
 	return { version, data };
 }
 
-export function colourhash_to_svg(hash: Uint8Array, options: ColourHashSvgOptions): string {
+export function cryptoglyphs_to_svg(hash: Uint8Array, options: CryptoglyphsSvgOptions): string {
 	if (hash.byteLength !== 32)
-		throw new Error("colourhash_to_svg: expects exactly 32 bytes");
+		throw new Error("cryptoglyphs_to_svg: expects exactly 32 bytes");
 	const requested_version = options.version ?? version;
 	const rows = options.rows ? (options.rows < 8 ? options.rows : 8) : 1;
 	const elements_per_row = Math.ceil(8 / rows);
 	const spacing = options.spacing ?? 1;
 	const size = 100 + spacing;
-	const colours = colourhash(hash);
+	const colours = cryptoglyphs(hash);
 	if (colours.version !== requested_version)
-		throw new Error(`colourhash_to_svg: unexpected version ${requested_version}, result version: ${colours.version}`);
-	let svg = `<svg viewbox="0 0 ${elements_per_row * size - spacing} ${rows * size - spacing}" xmlns="http://www.w3.org/2000/svg"><!-- Ryder ColourHash version ${colours.version} -->`;
+		throw new Error(`cryptoglyphs_to_svg: unexpected version ${requested_version}, result version: ${colours.version}`);
+	let svg = `<svg viewbox="0 0 ${elements_per_row * size - spacing} ${rows * size - spacing}" xmlns="http://www.w3.org/2000/svg"><!-- Ryder Cryptoglyphs version ${colours.version} -->`;
 	let index = 0;
 	for (let y = 0; y < rows; ++y)
 		for (let x = 0; x < elements_per_row && index < colours.data.length; ++index, ++x)

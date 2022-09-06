@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>ColourHash Test</title>
+	<title>Cryptoglyphs Test</title>
 	<style type="text/css">
 		body{
 			color: #ffffff;
@@ -36,7 +36,7 @@
 		<div id="output"></div>
 	</label>
 	<script type="module">
-		import {colourhash_to_svg} from "./colourhash.js";
+		import {cryptoglyphs_to_svg} from "./cryptoglyphs.js";
 
 		const input = document.getElementById("input");
 		const output = document.getElementById("output");
@@ -49,7 +49,7 @@
 		function render()
 			{
 			console.log('render');
-			const svg = colourhash_to_svg(hash,{rows,spacing});
+			const svg = cryptoglyphs_to_svg(hash,{rows,spacing});
 			output.innerHTML = svg;
 			}
 

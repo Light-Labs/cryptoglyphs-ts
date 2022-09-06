@@ -1,8 +1,8 @@
 {
-  "name": "colourhash-ts",
+  "name": "cryptoglyphs-ts",
   "version": "1.0.0",
-  "description": "Ryder ColourHash for TypeScript",
-  "main": "src/colourhash.ts",
+  "description": "Ryder Cryptoglyphs for TypeScript",
+  "main": "src/cryptoglyphs.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "test-server": "mkdir -p ./dist && cp ./test/index.html ./dist && http-server ./dist",
@@ -12,15 +12,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Light-Labs/colourhash-ts.git"
+    "url": "git+https://github.com/Light-Labs/cryptoglyphs-ts.git"
   },
   "keywords": [],
   "author": "Marvin Janssen",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/Light-Labs/colourhash-ts/issues"
+    "url": "https://github.com/Light-Labs/cryptoglyphs-ts/issues"
   },
-  "homepage": "https://github.com/Light-Labs/colourhash-ts#readme",
+  "homepage": "https://github.com/Light-Labs/cryptoglyphs-ts#readme",
   "devDependencies": {
     "http-server": "^14.1.1",
     "npm-run-all": "^4.1.5",
