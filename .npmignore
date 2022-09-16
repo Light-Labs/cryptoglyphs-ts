@@ -1,0 +1,7 @@
+dist/
+node_modules/
+test/
+reference/
+.DS_Store
+*.sublime-workspace
+*.sublime-project
