@@ -1,5 +1,5 @@
 {
-  "name": "cryptoglyphs-ts",
+  "name": "@lightlabs/cryptoglyphs-ts",
   "version": "1.0.0",
   "description": "Ryder Cryptoglyphs for TypeScript",
   "main": "src/cryptoglyphs.ts",
@@ -14,7 +14,7 @@
     "type": "git",
     "url": "git+https://github.com/Light-Labs/cryptoglyphs-ts.git"
   },
-  "keywords": [],
+  "keywords": ["cryptoglyphs","crypto","color","hash"],
   "author": "Marvin Janssen",
   "license": "MIT",
   "bugs": {

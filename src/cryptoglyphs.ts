@@ -1,6 +1,6 @@
 export const version = 1;
 
-export type CryptoglyphsDataPoint = { symbol: number, colour: number };
+export type CryptoglyphsDataPoint = { symbol: number, color: number };
 
 export type Cryptoglyphs = {
 	version: number,
@@ -49,7 +49,7 @@ export function cryptoglyphs(hash: Uint8Array): Cryptoglyphs {
 	const view = new DataView(hash.buffer, hash.byteOffset, hash.byteLength);
 	let data: CryptoglyphsDataPoint[] = [];
 	for (let offset = 0; offset < view.byteLength; offset += 4)
-		data.push({ symbol: view.getUint16(offset, false), colour: view.getUint16(offset + 2, false) });
+		data.push({ symbol: view.getUint16(offset, false), color: view.getUint16(offset + 2, false) });
 	return { version, data };
 }
 
@@ -61,14 +61,14 @@ export function cryptoglyphs_to_svg(hash: Uint8Array, options: CryptoglyphsSvgOp
 	const elements_per_row = Math.ceil(8 / rows);
 	const spacing = options.spacing ?? 1;
 	const size = 100 + spacing;
-	const colours = cryptoglyphs(hash);
-	if (colours.version !== requested_version)
-		throw new Error(`cryptoglyphs_to_svg: unexpected version ${requested_version}, result version: ${colours.version}`);
-	let svg = `<svg viewbox="0 0 ${elements_per_row * size - spacing} ${rows * size - spacing}" xmlns="http://www.w3.org/2000/svg"><!-- Ryder Cryptoglyphs version ${colours.version} -->`;
+	const colors = cryptoglyphs(hash);
+	if (colors.version !== requested_version)
+		throw new Error(`cryptoglyphs_to_svg: unexpected version ${requested_version}, result version: ${colors.version}`);
+	let svg = `<svg viewbox="0 0 ${elements_per_row * size - spacing} ${rows * size - spacing}" xmlns="http://www.w3.org/2000/svg"><!-- Ryder Cryptoglyphs version ${colors.version} -->`;
 	let index = 0;
 	for (let y = 0; y < rows; ++y)
-		for (let x = 0; x < elements_per_row && index < colours.data.length; ++index, ++x)
-			svg += `<path d="M ${x * size} ${y * size} ${shapes[colours.data[index].symbol % shapes.length]}" fill="${palette[colours.data[index].colour % palette.length]}"/>`;
+		for (let x = 0; x < elements_per_row && index < colors.data.length; ++index, ++x)
+			svg += `<path d="M ${x * size} ${y * size} ${shapes[colors.data[index].symbol % shapes.length]}" fill="${palette[colors.data[index].color % palette.length]}"/>`;
 	svg += `</svg>`;
 	return svg;
 }
